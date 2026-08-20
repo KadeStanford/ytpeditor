@@ -1,0 +1,12 @@
+/build/
+/out/
+/dist/
+/.vs/
+/.vscode/
+/CMakeUserPresets.json
+*.autosave
+*.autosave.*
+*.user
+*.suo
+*.VC.db
+*.VC.opendb

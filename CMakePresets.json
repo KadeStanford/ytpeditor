@@ -1,0 +1,92 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-ucrt-debug",
+      "displayName": "Windows UCRT64 Qt/MLT Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/ucrt-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "C:/msys64/ucrt64/bin/gcc.exe",
+        "CMAKE_CXX_COMPILER": "C:/msys64/ucrt64/bin/g++.exe",
+        "CMAKE_PREFIX_PATH": "C:/msys64/ucrt64",
+        "PKG_CONFIG_EXECUTABLE": "C:/msys64/ucrt64/bin/pkg-config.exe",
+        "YTP_BUILD_TESTS": "ON",
+        "YTP_ENABLE_QT_UI": "ON",
+        "YTP_ENABLE_MLT": "ON"
+      },
+      "environment": {
+        "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}",
+        "PKG_CONFIG_PATH": "C:/msys64/ucrt64/lib/pkgconfig"
+      }
+    },
+    {
+      "name": "windows-msvc-debug",
+      "displayName": "Windows MSVC Debug",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build/msvc-debug",
+      "cacheVariables": {
+        "CMAKE_CONFIGURATION_TYPES": "Debug;Release",
+        "YTP_BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "windows-ucrt-release",
+      "inherits": "windows-ucrt-debug",
+      "displayName": "Windows UCRT64 Qt/MLT Release",
+      "binaryDir": "${sourceDir}/build/ucrt-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "YTP_BUILD_TESTS": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-ucrt-debug",
+      "configurePreset": "windows-ucrt-debug"
+    },
+    {
+      "name": "windows-msvc-debug",
+      "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "windows-msvc-release",
+      "configurePreset": "windows-msvc-debug",
+      "configuration": "Release"
+    },
+    {
+      "name": "windows-ucrt-release",
+      "configurePreset": "windows-ucrt-release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "windows-ucrt-debug",
+      "configurePreset": "windows-ucrt-debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "environment": {
+        "PATH": "C:/msys64/ucrt64/bin;C:/msys64/usr/bin;$penv{PATH}",
+        "MLT_REPOSITORY": "C:/msys64/ucrt64/lib/mlt"
+      }
+    },
+    {
+      "name": "windows-msvc-debug",
+      "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}
